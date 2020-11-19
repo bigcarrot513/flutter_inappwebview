@@ -1802,6 +1802,21 @@ public class InAppWebView: WKWebView, UIScrollViewDelegate, WKUIDelegate, WKNavi
         }
     }
     
+    public func addScript(source: String, withWrapper jsWrapper: String?, result: FlutterResult?) {
+        var jsToInject = source
+        if let wrapper = jsWrapper {
+            let jsonData: Data? = try? JSONSerialization.data(withJSONObject: [source], options: [])
+            let sourceArrayString = String(data: jsonData!, encoding: String.Encoding.utf8)
+            let sourceString: String? = (sourceArrayString! as NSString).substring(with: NSRange(location: 1, length: (sourceArrayString?.count ?? 0) - 2))
+            jsToInject = String(format: wrapper, sourceString!)
+        }
+
+        self.configuration.userContentController.addUserScript(WKUserScript(source: jsToInject, injectionTime: WKUserScriptInjectionTime.atDocumentStart, forMainFrameOnly: false));
+        result!(nil)
+        return
+        
+    }
+    
     public func injectDeferredObject(source: String, withWrapper jsWrapper: String?, result: FlutterResult?) {
         var jsToInject = source
         if let wrapper = jsWrapper {
@@ -1827,6 +1842,10 @@ public class InAppWebView: WKWebView, UIScrollViewDelegate, WKUIDelegate, WKNavi
             
             result!(value)
         })
+    }
+    
+    public func addUserScriptForAllFrame(source: String, result: FlutterResult?) {
+        addScript(source: source, withWrapper: nil, result: result)
     }
     
     public func evaluateJavascript(source: String, result: FlutterResult?) {

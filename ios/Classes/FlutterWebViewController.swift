@@ -212,6 +212,15 @@ public class FlutterWebViewController: FlutterMethodCallDelegate, FlutterPlatfor
                     result(false)
                 }
                 break
+            case "addJavascriptForAllFrame":
+                if webView != nil {
+                    let source = (arguments!["source"] as? String)!
+                    webView!.addUserScriptForAllFrame(source: source, result: result)
+                }
+                else {
+                    result(nil)
+                }
+                break
             case "evaluateJavascript":
                 if webView != nil {
                     let source = (arguments!["source"] as? String)!

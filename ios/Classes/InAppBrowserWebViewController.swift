@@ -174,6 +174,10 @@ public class InAppBrowserWebViewController: UIViewController, FlutterPlugin, UIS
                 let source = arguments!["source"] as! String
                 webView.evaluateJavascript(source: source, result: result)
                 break
+            case "addJavascriptForAllFrame":
+                let source = arguments!["source"] as! String
+                webView.addUserScriptForAllFrame(source: source, result: result)
+                break
             case "injectJavascriptFileFromUrl":
                 let urlFile = arguments!["urlFile"] as! String
                 webView.injectJavascriptFileFromUrl(urlFile: urlFile)
