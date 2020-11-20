@@ -1811,7 +1811,7 @@ public class InAppWebView: WKWebView, UIScrollViewDelegate, WKUIDelegate, WKNavi
             jsToInject = String(format: wrapper, sourceString!)
         }
 
-        self.configuration.userContentController.addUserScript(WKUserScript(source: jsToInject, injectionTime: WKUserScriptInjectionTime.atDocumentStart, forMainFrameOnly: false));
+        self.configuration.userContentController.addUserScript(WKUserScript(source: jsToInject, injectionTime: WKUserScriptInjectionTime.atDocumentEnd, forMainFrameOnly: false));
         result!(nil)
         return
         
