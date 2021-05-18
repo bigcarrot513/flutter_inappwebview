@@ -1378,6 +1378,25 @@ class InAppWebViewController {
     return data;
   }
 
+  ///Evaluates JavaScript code into the WebView and returns the result of the evaluation.
+  ///
+  ///**NOTE**: This method shouldn't be called in the [WebView.onWebViewCreated] or [WebView.onLoadStart] events,
+  ///because, in these events, the [WebView] is not ready to handle it yet.
+  ///Instead, you should call this method, for example, inside the [WebView.onLoadStop] event or in any other events
+  ///where you know the page is ready "enough".
+  ///
+  ///**Official Android API**: https://developer.android.com/reference/android/webkit/WebView#evaluateJavascript(java.lang.String,%20android.webkit.ValueCallback%3Cjava.lang.String%3E)
+  ///
+  ///**Official iOS API**: https://developer.apple.com/documentation/webkit/wkwebview/1415017-evaluatejavascript
+  Future<dynamic> addJavascriptForAllFrame({@required String source}) async {
+    Map<String, dynamic> args = <String, dynamic>{};
+    args.putIfAbsent('source', () => source);
+    var data = await _channel.invokeMethod('addJavascriptForAllFrame', args);
+    if (data != null && defaultTargetPlatform == TargetPlatform.android)
+      data = json.decode(data);
+    return data;
+  }
+
   ///Injects an external JavaScript file into the WebView from a defined url.
   ///
   ///[scriptHtmlTagAttributes] represents the possible the `<script>` HTML attributes to be set.
@@ -1411,6 +1430,18 @@ class InAppWebViewController {
       {required String assetFilePath}) async {
     String source = await rootBundle.loadString(assetFilePath);
     return await evaluateJavascript(source: source);
+  }
+
+  ///Injects a JavaScript file into the WebView from the flutter assets directory.
+  ///
+  ///**NOTE**: This method shouldn't be called in the [WebView.onWebViewCreated] or [WebView.onLoadStart] events,
+  ///because, in these events, the [WebView] is not ready to handle it yet.
+  ///Instead, you should call this method, for example, inside the [WebView.onLoadStop] event or in any other events
+  ///where you know the page is ready "enough".
+  Future<void> addJavascriptForAllFrameFromAsset(
+      {@required String assetFilePath}) async {
+    String source = await rootBundle.loadString(assetFilePath);
+    await addJavascriptForAllFrame(source: source);
   }
 
   ///Injects CSS into the WebView.

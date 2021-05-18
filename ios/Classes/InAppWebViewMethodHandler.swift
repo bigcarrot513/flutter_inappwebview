@@ -91,6 +91,15 @@ public class InAppWebViewMethodHandler: FlutterMethodCallDelegate {
                     result(nil)
                 }
                 break
+            case "addJavascriptForAllFrame":
+                if webView != nil {
+                    let source = (arguments!["source"] as? String)!
+                    webView!.addUserScriptForAllFrame(source: source, result: result)
+                }
+                else {
+                    result(nil)
+                }
+                break
             case "injectJavascriptFileFromUrl":
                 let urlFile = arguments!["urlFile"] as! String
                 let scriptHtmlTagAttributes = arguments!["scriptHtmlTagAttributes"] as? [String:Any?]
