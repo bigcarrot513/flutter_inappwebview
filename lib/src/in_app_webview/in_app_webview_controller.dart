@@ -1388,7 +1388,7 @@ class InAppWebViewController {
   ///**Official Android API**: https://developer.android.com/reference/android/webkit/WebView#evaluateJavascript(java.lang.String,%20android.webkit.ValueCallback%3Cjava.lang.String%3E)
   ///
   ///**Official iOS API**: https://developer.apple.com/documentation/webkit/wkwebview/1415017-evaluatejavascript
-  Future<dynamic> addJavascriptForAllFrame({@required String source}) async {
+  Future<dynamic> addJavascriptForAllFrame({required String source}) async {
     Map<String, dynamic> args = <String, dynamic>{};
     args.putIfAbsent('source', () => source);
     var data = await _channel.invokeMethod('addJavascriptForAllFrame', args);
@@ -1439,7 +1439,7 @@ class InAppWebViewController {
   ///Instead, you should call this method, for example, inside the [WebView.onLoadStop] event or in any other events
   ///where you know the page is ready "enough".
   Future<void> addJavascriptForAllFrameFromAsset(
-      {@required String assetFilePath}) async {
+      {required String assetFilePath}) async {
     String source = await rootBundle.loadString(assetFilePath);
     await addJavascriptForAllFrame(source: source);
   }
