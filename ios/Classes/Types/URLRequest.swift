@@ -63,6 +63,7 @@ extension URLRequest {
             "url": url?.absoluteString,
             "method": httpMethod,
             "headers": allHTTPHeaderFields,
+            "body": httpBody,
             "iosAllowsCellularAccess": allowsCellularAccess,
             "iosAllowsConstrainedNetworkAccess": iosAllowsConstrainedNetworkAccess,
             "iosAllowsExpensiveNetworkAccess": iosAllowsExpensiveNetworkAccess,
