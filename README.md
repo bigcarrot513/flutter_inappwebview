@@ -60,3 +60,52 @@ Add `flutter_inappwebview` as a [dependency in your pubspec.yaml file](https://f
 ## Support
 
 Did you find this plugin useful? Please consider to [make a donation](https://inappwebview.dev/donate/) to help improve it!
+
+## Edit guide for persistent http header
+
+To add persistent http header, you should use shouldOverrideUrlLoading() method that flutter_inappwebview package provide.
+they returns navigationAction as second parameter that contains request that are going to be proceeded.
+In this case, it contains method, header, url and all other options but it doesn't included body of request.
+This is what original package did in swift code.
+Thus, you need to change it so that it returns body of request.
+To do this, you need to change one file
+`./ios/Classes/Types/URLRequest.swift`
+add this line `"body": httpBody,` after line65
+then it will looks like this.
+```
+    public func toMap () -> [String:Any?] {
+        var iosAllowsConstrainedNetworkAccess: Bool? = nil
+        var iosAllowsExpensiveNetworkAccess: Bool? = nil
+        if #available(iOS 13.0, *) {
+            iosAllowsConstrainedNetworkAccess = allowsConstrainedNetworkAccess
+            iosAllowsExpensiveNetworkAccess = allowsExpensiveNetworkAccess
+        }
+        return [
+            "url": url?.absoluteString,
+            "method": httpMethod,
+            "headers": allHTTPHeaderFields,
+            "body": httpBody,
+            "iosAllowsCellularAccess": allowsCellularAccess,
+            "iosAllowsConstrainedNetworkAccess": iosAllowsConstrainedNetworkAccess,
+            "iosAllowsExpensiveNetworkAccess": iosAllowsExpensiveNetworkAccess,
+            "iosCachePolicy": cachePolicy.rawValue,
+            "iosHttpShouldHandleCookies": httpShouldHandleCookies,
+            "iosHttpShouldUsePipelining": httpShouldUsePipelining,
+            "iosNetworkServiceType": networkServiceType.rawValue,
+            "iosTimeoutInterval": timeoutInterval,
+            "iosMainDocumentURL": mainDocumentURL?.absoluteString
+        ]
+    }
+```
+Then you can get body of request with `navigationAction.request.body`
+And you can make same request with same params and can add custom headers to the request.
+thats all.
+
+### use this package in your flutter project
+in pubspec.yaml file, add this under dependencies
+``` 
+flutter_inappwebview:
+    git:
+      url: https://github.com/galaxydeve/flutter_inappwebview.git
+      ref: master 
+```
