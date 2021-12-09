@@ -107,20 +107,12 @@ public class InAppWebViewClient extends WebViewClient {
     return false;
   }
 
-  private void allowShouldOverrideUrlLoading(WebView view, String url, Map<String, String> headers, boolean isForMainFrame) {
-    InAppWebView webView = (InAppWebView) view;
+  private void allowShouldOverrideUrlLoading(WebView webView, String url, Map<String, String> headers, boolean isForMainFrame) {
     if (isForMainFrame) {
       // There isn't any way to load an URL for a frame that is not the main frame,
       // so call this only on main frame.
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-        if(webView.options.customHeaders != null && headers != null) {
-          Map<String, String> cHeaders = headers.putAll(webView.options.customHeaders);
-          webView.loadUrl(url, cHeaders);
-        } else if(headers != null && webView.options.customHeaders == null){
-          webView.loadUrl(url, headers);
-        }else if(headers == null && webView.options.customHeaders != null) {
-          webView.loadUrl(url, webView.options.customHeaders);
-        }
+        webView.loadUrl(url, headers);
       else
         webView.loadUrl(url);
     }
