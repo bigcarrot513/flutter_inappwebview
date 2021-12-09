@@ -26,7 +26,7 @@ public class InAppWebViewOptions implements Options<InAppWebView> {
   public Boolean useOnDownloadStart = false;
   public Boolean clearCache = false;
   public String userAgent = "";
-  public Map<String, String> customHeaders = {};
+  public Map<String, String> customHeaders = new HashMap<String, String>();
   public String applicationNameForUserAgent = "";
   public Boolean javaScriptEnabled = true;
   public Boolean javaScriptCanOpenWindowsAutomatically = false;
