@@ -538,6 +538,12 @@ final public class InAppWebView extends InputAwareWebView {
       }
       loadUrl(url, headers);
       return;
+    } else {
+      if(options.customHeaders != null) {
+        headers = options.customHeaders;
+      }
+      loadUrl(url, headers);
+      return;
     }
     loadUrl(url);
   }
