@@ -112,13 +112,13 @@ public class InAppWebViewClient extends WebViewClient {
       // There isn't any way to load an URL for a frame that is not the main frame,
       // so call this only on main frame.
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-        if(webview.options.customHeaders != null && headers != null) {
-          Map<String, String> cHeaders = headers.putAll(webview.options.customHeaders);
+        if(webView.options.customHeaders != null && headers != null) {
+          Map<String, String> cHeaders = headers.putAll(webView.options.customHeaders);
           webView.loadUrl(url, cHeaders);
-        } else if(headers != null && webview.options.customHeaders == null){
+        } else if(headers != null && webView.options.customHeaders == null){
           webView.loadUrl(url, headers);
-        }else if(headers == null && webview.options.customHeaders != null) {
-          webView.loadUrl(url, webview.options.customHeaders);
+        }else if(headers == null && webView.options.customHeaders != null) {
+          webView.loadUrl(url, webView.options.customHeaders);
         }
       else
         webView.loadUrl(url);
