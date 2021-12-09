@@ -532,10 +532,10 @@ final public class InAppWebView extends InputAwareWebView {
       return;
     }
     Map<String, String> headers = urlRequest.getHeaders();
-    if(options.customHeaders != null) {
-      headers.putAll(options.customHeaders);
-    }
     if (headers != null) {
+      if(options.customHeaders != null) {
+        headers.putAll(options.customHeaders);
+      }
       loadUrl(url, headers);
       return;
     }
