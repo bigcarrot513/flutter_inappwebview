@@ -26,6 +26,7 @@ public class InAppWebViewOptions implements Options<InAppWebView> {
   public Boolean useOnDownloadStart = false;
   public Boolean clearCache = false;
   public String userAgent = "";
+  public Map<String, String> customHeaders = {};
   public String applicationNameForUserAgent = "";
   public Boolean javaScriptEnabled = true;
   public Boolean javaScriptCanOpenWindowsAutomatically = false;
@@ -132,6 +133,9 @@ public class InAppWebViewOptions implements Options<InAppWebView> {
           break;
         case "userAgent":
           userAgent = (String) value;
+          break;
+        case "customHeaders":
+          customHeaders = (Map<String, String>) value;
           break;
         case "applicationNameForUserAgent":
           applicationNameForUserAgent = (String) value;
@@ -375,6 +379,7 @@ public class InAppWebViewOptions implements Options<InAppWebView> {
     options.put("useOnDownloadStart", useOnDownloadStart);
     options.put("clearCache", clearCache);
     options.put("userAgent", userAgent);
+    options.put("customHeaders", customHeaders);
     options.put("applicationNameForUserAgent", applicationNameForUserAgent);
     options.put("javaScriptEnabled", javaScriptEnabled);
     options.put("javaScriptCanOpenWindowsAutomatically", javaScriptCanOpenWindowsAutomatically);

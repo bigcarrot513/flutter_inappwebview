@@ -109,6 +109,7 @@ class InAppWebViewOptions
   ///
   ///**NOTE**: available on iOS 9.0+.
   String userAgent;
+  Map<String, String> customHeaders;
 
   ///Append to the existing user-agent. Setting userAgent will override this.
   ///
@@ -211,6 +212,7 @@ class InAppWebViewOptions
       this.useOnDownloadStart = false,
       this.clearCache = false,
       this.userAgent = "",
+      this.customHeaders = const {},
       this.applicationNameForUserAgent = "",
       this.javaScriptEnabled = true,
       this.javaScriptCanOpenWindowsAutomatically = false,
@@ -252,6 +254,7 @@ class InAppWebViewOptions
       "useOnDownloadStart": useOnDownloadStart,
       "clearCache": clearCache,
       "userAgent": userAgent,
+      "customHeaders": customHeaders,
       "applicationNameForUserAgent": applicationNameForUserAgent,
       "javaScriptEnabled": javaScriptEnabled,
       "javaScriptCanOpenWindowsAutomatically":
@@ -293,6 +296,7 @@ class InAppWebViewOptions
     options.useOnDownloadStart = map["useOnDownloadStart"];
     options.clearCache = map["clearCache"];
     options.userAgent = map["userAgent"];
+    options.customHeaders = map["customHeaders"];
     options.applicationNameForUserAgent = map["applicationNameForUserAgent"];
     options.javaScriptEnabled = map["javaScriptEnabled"];
     options.javaScriptCanOpenWindowsAutomatically =
