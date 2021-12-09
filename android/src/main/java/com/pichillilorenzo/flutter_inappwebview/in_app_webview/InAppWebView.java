@@ -541,11 +541,12 @@ final public class InAppWebView extends InputAwareWebView {
     } else {
       if(options.customHeaders != null) {
         headers = options.customHeaders;
+        loadUrl(url, headers);
+      }else {
+        loadUrl(url);
       }
-      loadUrl(url, headers);
       return;
     }
-    loadUrl(url);
   }
 
   public void loadFile(String assetFilePath) throws IOException {
